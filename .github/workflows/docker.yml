@@ -1,0 +1,19 @@
+name: Deploy Docker
+
+# Run workflow on tags starting with v (eg. v2, v1.2.0)
+on:
+  push: 
+    
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          repository: olvyhq/deployments
+          event-type: deploy
+          client-payload: '{"tag": "${{ steps.commit.outputs.short }}"}'
+~                                                                        
